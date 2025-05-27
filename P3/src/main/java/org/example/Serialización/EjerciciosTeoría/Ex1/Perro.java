@@ -1,4 +1,4 @@
-package org.example.Serialización.EjerciciosTeoría;
+package org.example.Serialización.EjerciciosTeoría.Ex1;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import java.io.Serializable;
 @ToString
 public class Perro implements Serializable {
 
-    private String raza;
+    private transient String raza; //Ejercicio 2
     private String nombre;
     private int edad;
 

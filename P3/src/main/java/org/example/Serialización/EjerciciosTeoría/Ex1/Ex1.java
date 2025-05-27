@@ -1,6 +1,4 @@
-package org.example.Serialización.EjerciciosTeoría;
-
-import org.example.Serialización.Carcel;
+package org.example.Serialización.EjerciciosTeoría.Ex1;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -21,7 +19,7 @@ public class Ex1 {
             file_serial.writeObject(perros);
             file_serial.close();
 
-        } catch (IOException e) {
+        } catch (IOException e) {//Ejercicio 3
 
             System.out.println("Algo salio mal");
             e.printStackTrace();

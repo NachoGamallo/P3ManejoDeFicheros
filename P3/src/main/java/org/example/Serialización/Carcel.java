@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Serialización;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
