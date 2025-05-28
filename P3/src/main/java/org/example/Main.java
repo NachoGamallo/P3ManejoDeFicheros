@@ -1,9 +1,6 @@
 package org.example;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Scanner;
 
 public class Main {
@@ -12,12 +9,15 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //Ex1();
+        Ex1();
         //Ex2(); //Tambien incluye el Ex3;
         //Ex4();
-        //Ex5("pdf");
-        //Ex6();
-        //Ex7();
+        //Ex5("sarc/main/resources/","txt");
+        //Ex6("palabras");
+        //Ex7("palabra");
+        //Ex8();
+        //Ex9("src/main/resources/test.txt");
+        //Ex10("src/main/resources/testcombinar1.txt","src/main/resources/testcombinar2.txt","src/main/resources/combinado.txt");
 
     }
 
@@ -25,7 +25,7 @@ public class Main {
 
         String path = "src/main/resources/";
 
-        File file = new File(path + "test.txt");
+        File file = new File(path + "test1.txt");
 
         try{
 
@@ -97,10 +97,9 @@ public class Main {
 
         }
     }
-    public static void Ex5(String extension){
+    public static void Ex5(String URL, String extension){
 
-        System.out.println("Introduce la carpeta en la que buscaremos: ");
-        File folder = new File(entry.next());
+        File folder = new File(URL);
 
         if (folder.isDirectory()){
 
@@ -128,10 +127,8 @@ public class Main {
         }
 
     }
-    public static void Ex6(){
+    public static void Ex6(String word){
 
-        System.out.println("Dame una palabra a buscar: ");
-        String word = entry.next();
         System.out.println("Dame la ruta del archivo para buscar la palabra: ");
         String file = entry.next();
 
@@ -154,10 +151,8 @@ public class Main {
             e.printStackTrace();
         }
     }
-    public static void Ex7(){
+    public static void Ex7(String word){
 
-        System.out.println("Dame una palabra a buscar: ");
-        String word = entry.next();
         System.out.println("Dame la ruta del archivo para buscar la palabra: ");
         String file = entry.next();
 
@@ -183,7 +178,7 @@ public class Main {
     }
     public static void Ex8(){
 
-        File file = new File("src/main/resources/ejemplo1.txt");
+        File file = new File("src/main/resources/ejemploEx8.txt");
         File folder = new File("src/main/resources");
 
         try {
@@ -209,7 +204,78 @@ public class Main {
 
         }
     }
-    public static void Ex9(){}
-    public static void Ex10(){}
+    public static void Ex9(String filePath){
+
+        File file = new File(filePath);
+        File temp = new File(filePath + ".temp");
+
+        try (BufferedReader read = new BufferedReader(new FileReader(file));
+        BufferedWriter write = new BufferedWriter(new FileWriter(temp))){
+
+            String line;
+
+            while ((line = read.readLine()) != null){
+
+                StringBuilder newLine = new StringBuilder();
+                for (String word : line.split(" ")){
+
+                    if (!word.isEmpty()){
+
+                        newLine.append(Character.toUpperCase(word.charAt(0)));
+
+                        if (word.length() > 1){
+
+                            newLine.append(word.substring(1));
+
+                        }
+                        newLine.append(" ");
+                    }
+
+                }
+                write.write(newLine.toString().trim());
+                write.newLine();
+
+            }
+
+        }catch (IOException e){
+
+            System.out.println("Algo salio mal...");
+            e.printStackTrace();
+
+        }
+
+        if (file.delete()){
+
+            temp.renameTo(file);
+            System.out.println("Archivo modificado correctamente.");
+
+        }else {
+
+            System.out.println("No se ha podido remplazar el archivo original.");
+
+        }
+
+    }
+    public static void Ex10(String file1, String file2, String newFile){
+
+        try (Scanner scannerFile1 = new Scanner(new File(file1));
+             Scanner scannerFile2 = new Scanner(new File(file2));
+             PrintWriter write = new PrintWriter(new FileWriter(newFile))) {
+
+            while (scannerFile1.hasNext() || scannerFile2.hasNext()){
+                if (scannerFile1.hasNext())write.print(scannerFile1.next() + " ");
+                if (scannerFile2.hasNext())write.print(scannerFile2.next() + " ");
+            }
+
+            System.out.println("Archivo combinado correctamente.");
+
+        }catch (IOException e){
+
+            System.out.println("Algo salio mal...");
+            e.printStackTrace();
+
+        }
+
+    }
 
 }
